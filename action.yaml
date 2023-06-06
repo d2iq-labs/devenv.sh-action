@@ -1,5 +1,9 @@
 name: 'Hello World'
 description: 'Greet someone'
+inputs:
+  github_token:
+    description: 'A GitHub token to download direnv release with'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -16,9 +20,32 @@ runs:
 
     - name: Install direnv
       shell: sh
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
       run: |
-        export bin_path=/usr/local/bin
-        curl -sfL https://direnv.net/install.sh | bash
+        os="$(uname -s | tr "[:upper:]" "[:lower:]")"
+        case "${os}" in
+          mingw*)
+            os=windows
+            ;;
+        esac
+        case "$(uname -m)" in
+          x86_64)
+            arch=amd64
+            ;;
+          i686 | i386)
+            arch=386
+            ;;
+          aarch64 | arm64)
+            arch=arm64
+            ;;
+          *)
+            echo "Machine $(uname -m) not supported by the direnv installer."
+            exit 1
+            ;;
+        esac
+        gh release download -R direnv/direnv -p "direnv.${os}-${arch}" -O /usr/local/bin/direnv
+        chmod +x /usr/local/bin/direnv
         direnv allow
 
     - name: Load PATH changes
