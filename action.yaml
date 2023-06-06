@@ -1,0 +1,34 @@
+name: 'Hello World'
+description: 'Greet someone'
+runs:
+  using: "composite"
+  steps:
+    - name: Install nix
+      uses: cachix/install-nix-action@v21
+
+    - uses: cachix/cachix-action@v12
+      with:
+        name: devenv
+
+    - name: Install devenv.sh
+      run: nix profile install github:cachix/devenv/latest
+      shell: sh
+
+    - name: Install direnv
+      shell: sh
+      run: |
+        export bin_path=/usr/local/bin
+        curl -sfL https://direnv.net/install.sh | bash
+        direnv allow
+
+    - name: Load PATH changes
+      shell: bash
+      run: |
+        direnv allow
+        direnv exec . sh -c 'echo $PATH' > "$GITHUB_PATH"
+
+    - name: Load other environment changes
+      shell: sh
+      run: |
+        direnv allow
+        direnv export gha >> "$GITHUB_ENV"
