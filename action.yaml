@@ -22,7 +22,7 @@ runs:
         direnv allow
 
     - name: Load PATH changes
-      shell: bash
+      shell: sh
       run: |
         direnv allow
         direnv exec . sh -c 'echo $PATH' > "$GITHUB_PATH"
