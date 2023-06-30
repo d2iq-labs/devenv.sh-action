@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.5 (2023-06-30)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Fixes 🔧
+* fix: Allow flake configs by @jimmidyson in https://github.com/d2iq-labs/devenv.sh-action/pull/6
+### Other Changes
+* build(main): release 1.0.4 by @github-actions in https://github.com/d2iq-labs/devenv.sh-action/pull/7
+
+
+**Full Changelog**: https://github.com/d2iq-labs/devenv.sh-action/compare/v1.0.4...v1.0.5
+
 ## 1.0.4 (2023-06-30)
 
 <!-- Release notes generated using configuration in .github/release.yaml at v1.0.4 -->
