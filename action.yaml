@@ -10,7 +10,7 @@ runs:
     - name: Install nix
       uses: cachix/install-nix-action@v25
 
-    - uses: cachix/cachix-action@v13
+    - uses: cachix/cachix-action@v14
       with:
         name: devenv
 
